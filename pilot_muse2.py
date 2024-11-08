@@ -5,12 +5,18 @@ pilot_muse2.py
 
 import psychopy
 import os.path as op
-from psychopy import event, visual, gui, core
+from psychopy import event, visual, gui, core, parallel
 
+# Task 1 = Resting State
+# Task 2 = Heartbeat counting
+# Task 3 = Hand Squeeze
 
 ### Create Window ###
 win = visual.Window(color = '#000000', fullscr = False, monitor="testMonitor", units="pix") # Will need to change units to 'degree' when we know distance from monitor 
 win.mouseVisible = False
+
+### Link to Computer ###
+p_port_resp = parallel.ParallelPort(address='0xDFF8')
 
 ## Fixation Cross function ###
 ### FIXATION CROSS COORDINATES 
@@ -50,6 +56,8 @@ instruction_HS = psychopy.visual.TextStim(win, text = instruction_HS_str, height
 
 
 ### RS Experiment ###
+p_port_resp.setData(1) # marking the start of the RS
+
 instruction_RS.draw()
 win.flip()
 core.wait(info['cueTIME'])
@@ -61,7 +69,11 @@ vert_line_fixation_end.draw()
 win.flip()
 core.wait(180)
 
+p_port_resp.setData(1) # marking the end of the RS
+
 ### HBC Experiment ###
+p_port_resp.setData(2) # marking the start of the HBC
+
 instruction_HBC.draw()
 win.flip()
 core.wait(info['cueTIME'])
@@ -72,7 +84,11 @@ vert_line_fixation_end.draw()
 win.flip()
 core.wait(180)
 
+p_port_resp.setData(2) # marking the end of the HBC
+
 ### HS Experiment ###
+p_port_resp.setData(3) # marking the start of the HS
+
 instruction_HS.draw()
 win.flip()
 core.wait(info['cueTIME'])
@@ -83,4 +99,5 @@ vert_line_fixation_end.draw()
 win.flip()
 core.wait(180)
 
+p_port_resp.setData(3) # marking the end of the HS
 
