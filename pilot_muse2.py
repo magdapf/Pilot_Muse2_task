@@ -18,6 +18,36 @@ win.mouseVisible = False
 ### Link to Computer ###
 p_port_resp = parallel.ParallelPort(address='0xDFF8')
 
+### Square changing color with stimulus for photo sensor ###
+
+#Set up squaare
+square_size = 76
+square = visual.Rect(
+    win=win,
+    width=square_size,
+    height=square_size,
+    pos=(-win.size[0] // 2 + square_size // 2, win.size[1] // 2 - square_size // 2),
+    fillColor="darkgrey",
+    lineColor=None
+)
+
+#main experiment loop
+stimulus_on = False  # To toggle the stimulus
+clock = core.Clock()
+
+#start the experiment
+for trial in range(3):  # 3 stimulus presentations
+    # Flip color of the square
+    if square.fillColor == "darkgrey":
+        square.fillColor = "white"
+    else:
+        square.fillColor = "darkgrey"
+     
+     square.draw()
+
+#add stimulus?? ## Still need to implement the square in the actual experiment
+
+
 ## Fixation Cross function ###
 ### FIXATION CROSS COORDINATES 
 horiz_line_fixation_start = [-25, 0]
@@ -64,6 +94,7 @@ core.wait(info['cueTIME'])
 
 
 # Insert Fixation Cross + timings 
+square.draw()
 vert_line_fixation_start.draw()
 vert_line_fixation_end.draw()
 win.flip()
@@ -78,7 +109,9 @@ instruction_HBC.draw()
 win.flip()
 core.wait(info['cueTIME'])
 
+
 # Insert Fixation Cross + timings 
+square.draw()
 vert_line_fixation_start.draw()
 vert_line_fixation_end.draw()
 win.flip()
@@ -94,6 +127,7 @@ win.flip()
 core.wait(info['cueTIME'])
 
 # Insert Fixation Cross + timings 
+square.draw()
 vert_line_fixation_start.draw()
 vert_line_fixation_end.draw()
 win.flip()
