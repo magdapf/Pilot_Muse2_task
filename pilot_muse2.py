@@ -20,7 +20,7 @@ p_port_resp = parallel.ParallelPort(address='0xDFF8')
 
 ### Square changing color with stimulus for photo sensor ###
 
-#Set up squaare
+#Set up square
 square_size = 76
 square = visual.Rect(
     win=win,
